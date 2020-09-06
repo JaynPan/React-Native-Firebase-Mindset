@@ -1,5 +1,6 @@
-import React from 'react'
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react'
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import * as firebase from 'firebase';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,7 +11,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function LoadingScreen() {
+export default function LoadingScreen({ navigation }) {
+  const checkIfLoggin = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+        navigation.navigate('DashboardScreen')
+      } else {
+        navigation.navigate('LoginScreen')
+      }
+    })
+  }
+
+  useEffect(() => { checkIfLoggin(); }, [])
+
   return (
     <View style={styles.container}>
       <ActivityIndicator size="small" />

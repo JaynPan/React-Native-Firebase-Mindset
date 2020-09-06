@@ -8,10 +8,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-firebase/app": "^8.4.1",
     "expo": "~38.0.8",
+    "expo-google-app-auth": "^8.1.2",
     "expo-status-bar": "^1.0.2",
-    "firebase": "7.9.0",
+    "firebase": "^7.19.1",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
@@ -21,7 +21,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "babel-preset-expo": "~8.1.0"
+    "babel-preset-expo": "~8.1.0",
+    "react-native-dotenv": "0.2.0"
   },
   "private": true
 }

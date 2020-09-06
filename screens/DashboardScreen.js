@@ -12,19 +12,18 @@ const styles = StyleSheet.create({
 });
 
 export default function DashboardScreen() {
-  const handleClick = () => {
-    firebase.firestore()
-      .collection('test')
-      .add({
-        name: 'test'
-      })
-      .then((data) => console.log(data))
+  const signOut = () => {
+    firebase.auth().signOut().then(function() {
+      console.log('sign out successful')
+    }).catch(function(error) {
+      console.log('sign out error', error);
+    });
   }
 
   return (
     <View style={styles.container}>
-      <Button onPress={handleClick} title="press" />
       <Text>Dashboard</Text>
+      <Button onPress={signOut} title="signOut" />
     </View>
   )
 }
