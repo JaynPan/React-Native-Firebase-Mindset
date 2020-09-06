@@ -5,11 +5,13 @@ import './firebaseConfig';
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import DashboardScreen from './screens/DashboardScreen';
-
+import AuthProvider from './context/AuthProvider';
 
 export default function App() {
   return (
-    <AppNavigator />
+    <AuthProvider>
+      <AppNavigator />
+    </AuthProvider>
   );
 }
 

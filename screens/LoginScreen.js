@@ -4,6 +4,8 @@ import * as firebase from 'firebase';
 import * as Google from 'expo-google-app-auth';
 import { IOS_CLIENT_ID } from 'react-native-dotenv'
 
+import { useAuth } from '../context/AuthProvider';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -15,6 +17,8 @@ const styles = StyleSheet.create({
 
 
 export default function LoginScreen() {
+  const { setUid } = useAuth();
+
   const isUserEqual = (googleUser, firebaseUser) => {
     console.log('firebaseuser', firebaseUser);
     if (firebaseUser) {
@@ -49,11 +53,13 @@ export default function LoginScreen() {
           .then((result) => {
             console.log('sign in success');
 
+            const uid = result.user.uid;
+
             if(result.additionalUserInfo.isNewUser) {
               firebase
                 .firestore()
                 .collection("users")
-                .doc(result.user.uid)
+                .doc(uid)
                 .set({
                   gmail: result.user.email,
                   profile_picture: result.additionalUserInfo.profile.picture,
@@ -63,6 +69,8 @@ export default function LoginScreen() {
                   created_at: Date.now() 
                 })
             }
+
+            setUid(uid)
           })
           .catch(function(error) {
             // Handle Errors here.
