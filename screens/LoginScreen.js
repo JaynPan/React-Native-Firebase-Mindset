@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
 
 export default function LoginScreen() {
   const isUserEqual = (googleUser, firebaseUser) => {
+    console.log('firebaseuser', firebaseUser);
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;
       for (var i = 0; i < providerData.length; i++) {
@@ -30,14 +31,13 @@ export default function LoginScreen() {
   }
 
   const onSignIn = (googleUser) => {
-    console.log('Google Auth Response', googleUser);
+    // console.log('Google Auth Response', googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
-    var unsubscribe = firebase.auth().onAuthStateChanged(function(firebaseUser) {
+    var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
       unsubscribe();
       // Check if we are already signed-in Firebase with the correct user.
       if (!isUserEqual(googleUser, firebaseUser)) {
         // Build Firebase credential with the Google ID token.
-        console.log()
         var credential = firebase.auth.GoogleAuthProvider.credential(
           googleUser.idToken,
           googleUser.accessToken
@@ -46,8 +46,23 @@ export default function LoginScreen() {
         firebase
           .auth()
           .signInWithCredential(credential)
-          .then(() => {
+          .then((result) => {
             console.log('sign in success');
+
+            if(result.additionalUserInfo.isNewUser) {
+              firebase
+                .firestore()
+                .collection("users")
+                .doc(result.user.uid)
+                .set({
+                  gmail: result.user.email,
+                  profile_picture: result.additionalUserInfo.profile.picture,
+                  locale: result.additionalUserInfo.profile.locale,
+                  first_name: result.additionalUserInfo.profile.given_name,
+                  last_name: result.additionalUserInfo.profile.family_name,
+                  created_at: Date.now() 
+                })
+            }
           })
           .catch(function(error) {
             // Handle Errors here.
