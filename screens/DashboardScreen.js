@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, Button, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as firebase from 'firebase';
 
@@ -14,10 +14,8 @@ const styles = StyleSheet.create({
 });
 
 export default function DashboardScreen() {
-  const { uid } = useAuth();
-  const [userInfo, setUserInfo] = useState(null);
-  const [bio, setBio] = useState('Write your own bio');
-  const [refetch, setRefetch] = useState(false);
+  const { uid, userInfo, setRefetchUserInfo } = useAuth();
+  const [bio, setBio] = useState(userInfo?.bio || 'Write your own bio');
 
   const signOut = () => {
     firebase.auth().signOut().then(function() {
@@ -25,11 +23,6 @@ export default function DashboardScreen() {
     }).catch(function(error) {
       console.log('sign out error', error);
     });
-  }
-
-  const getUserInfo = async () => {
-    const doc = await firebase.firestore().collection('users').doc(uid).get();
-    setUserInfo(doc.data())
   }
 
   const submitBio = async () => {
@@ -40,19 +33,12 @@ export default function DashboardScreen() {
         }, { merge: true })
         Keyboard.dismiss();
         setBio('');
-        setRefetch(true);
+        setRefetchUserInfo(true);
       } catch(e) {
         console.log('failed')
       }
     }
   }
-
-  useEffect(() => {
-    if(uid) {
-      setRefetch(false);
-      getUserInfo();
-    }
-  }, [uid, refetch])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
