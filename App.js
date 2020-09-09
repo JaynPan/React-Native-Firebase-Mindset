@@ -1,25 +1,16 @@
-import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import './firebaseConfig';
-import LoadingScreen from './screens/LoadingScreen';
-import LoginScreen from './screens/LoginScreen';
-import DashboardScreen from './screens/DashboardScreen';
-import AuthProvider from './context/AuthProvider';
+
+import RootStackScreen from './navigations/RootStack';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppNavigator />
-    </AuthProvider>
+    <NavigationContainer>
+      <RootStackScreen />
+    </NavigationContainer>
   );
 }
 
-const AppSwitchNavigator = createSwitchNavigator({
-  LoadingScreen,
-  DashboardScreen,
-  LoginScreen,
-});
-
-const AppNavigator = createAppContainer(AppSwitchNavigator);
 
