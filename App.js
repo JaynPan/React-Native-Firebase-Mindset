@@ -4,12 +4,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import './firebaseConfig';
 
 import RootStackScreen from './navigations/RootStack';
+import AuthProvider from './context/AuthProvider';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <RootStackScreen />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <RootStackScreen />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 
