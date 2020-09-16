@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, StatusBar, Button } from 'react-native';
+import { StyleSheet, View, Text, StatusBar, Button, Image } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import * as firebase from 'firebase';
 import * as Google from 'expo-google-app-auth';
 import { IOS_CLIENT_ID } from 'react-native-dotenv'
+import { SocialIcon } from 'react-native-elements'
 
 import { useAuth } from '../context/AuthProvider';
 
@@ -49,7 +50,7 @@ export default function SplashScreen({ navigation }) {
     return false;
   }
 
-  const onSignIn = (googleUser) => {
+  const onSignInGoogle = (googleUser) => {
     // console.log('Google Auth Response', googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
@@ -113,7 +114,7 @@ export default function SplashScreen({ navigation }) {
       });
 
       if(result.type === 'success') {
-        onSignIn(result)
+        onSignInGoogle(result)
       } else {
         return { cancelled: true };
       }
@@ -126,13 +127,18 @@ export default function SplashScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar backgroundColor='#345995' barStyle="light-content"/>
       <View style={styles.header}>
-        <Text style={styles.logo}>註冊帳戶</Text>
+        <Text style={styles.logo}>登入</Text>
       </View>
       <Animatable.View 
         style={[styles.footer]}
         animation="fadeInUpBig"
       >
-        <Button onPress={signInWithGoogleAsync} title="Google Sign In" />
+        <SocialIcon
+          title="Sign In With Google"
+          button={true}
+          type="google"
+          onPress={signInWithGoogleAsync}
+        />
       </Animatable.View>
     </View>
   )
