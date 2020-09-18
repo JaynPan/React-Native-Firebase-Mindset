@@ -1,12 +1,14 @@
-import React from 'react';
-import { StyleSheet, View, Text, StatusBar, Button, Image } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, StatusBar, Button as RNBtn, KeyboardAvoidingView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import * as firebase from 'firebase';
 import * as Google from 'expo-google-app-auth';
 import { IOS_CLIENT_ID } from 'react-native-dotenv'
-import { SocialIcon } from 'react-native-elements'
+import { SocialIcon, Button } from 'react-native-elements'
+import { Ionicons } from '@expo/vector-icons'; 
 
 import { useAuth } from '../context/AuthProvider';
+import Input from '../components/TextInput';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +22,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     color: '#fff',
-    fontSize: 25
+    fontSize: 18
   },
   footer: {
       flex: 3,
@@ -30,10 +32,23 @@ const styles = StyleSheet.create({
       paddingVertical: 50,
       paddingHorizontal: 30
   },
+  or: {
+    color: '#86939e',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  others: {
+    borderTopWidth: 1,
+    borderColor: '#eee',
+    marginTop: 20,
+    paddingTop: 10,
+  }
 });
 
 export default function SplashScreen({ navigation }) {
   const { setUid } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const isUserEqual = (googleUser, firebaseUser) => {
     console.log('firebaseuser', firebaseUser);
@@ -123,23 +138,69 @@ export default function SplashScreen({ navigation }) {
     }
   }
 
+  const signIn = async (email, password) => {
+    try {
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+
+    } catch(error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log('signIn error', errorMessage)
+    }
+  }
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+      behavior="padding"
+      style={styles.container}
+    >
       <StatusBar backgroundColor='#345995' barStyle="light-content"/>
       <View style={styles.header}>
         <Text style={styles.logo}>登入</Text>
       </View>
-      <Animatable.View 
+      <Animatable.View
         style={[styles.footer]}
         animation="fadeInUpBig"
       >
+        <Input
+          label="輸入電子郵件"
+          placeholder='email@gmail.com'
+          leftIcon={<Ionicons name="md-mail" size={24} color="#86939e" />}
+          inputStyle={{ marginLeft: 10 }}
+          keyboardType="email-address"
+          value={email}
+          onChangeText={val => setEmail(val)}
+        />
+        <Input
+          label="輸入密碼"
+          secureTextEntry={true}
+          autoCompleteType="password"
+          placeholder='Password'
+          leftIcon={<Ionicons name="md-lock" size={24} color="#86939e" />}
+          inputStyle={{ marginLeft: 10 }}
+          value={password}
+          onChangeText={val => setPassword(val)}
+        />
+        <Button
+          buttonStyle={{borderRadius: 10}}
+          title="登入"
+          onPress={() => signIn(email, password)}
+        />
+        <Text style={styles.or}>或者</Text>
         <SocialIcon
-          title="Sign In With Google"
+          title="使用 Google 登入"
           button={true}
           type="google"
           onPress={signInWithGoogleAsync}
+          style={{width: '100%', marginHorizontal: 'auto', borderRadius: 10}}
         />
+        <View style={styles.others}>
+          <RNBtn title="註冊帳號" onPress={() => navigation.navigate('SignUpScreen')} />
+        </View>
       </Animatable.View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }

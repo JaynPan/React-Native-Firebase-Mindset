@@ -29,11 +29,21 @@ const styles = StyleSheet.create({
 
 export default function SplashScreen({ navigation }) {
   const checkIfLoggin = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
+    firebase.auth().onAuthStateChanged(async (result) => {
+      if(result && result?.emailVerified) {        
+        // check if user first time login
+        if(!result.lastLoginAt) {
+          // update email verified status in database
+          await firebase
+                  .firestore()
+                  .collection('users')
+                  .doc(result.uid)
+                  .set({ emailVerified: true }, { merge: true });
+        }
+
         navigation.navigate('HomeScreen')
       } else {
-        navigation.navigate('SplashScreen')
+        navigation.navigate('SignInScreen')
       }
     })
   }

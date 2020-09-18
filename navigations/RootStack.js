@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SplashScreen from '../screens/SplashScreen';
 import SignInScreen from '../screens/SiginInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
 
 const RootStack = createStackNavigator();
@@ -24,6 +25,11 @@ const RootStackScreen = () => {
       <RootStack.Screen 
         name="SignInScreen" 
         component={SignInScreen} 
+        options={{ cardStyleInterpolator: forFade }}
+      />
+      <RootStack.Screen 
+        name="SignUpScreen" 
+        component={SignUpScreen} 
         options={{ cardStyleInterpolator: forFade }}
       />
       <RootStack.Screen 
