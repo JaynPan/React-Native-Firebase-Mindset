@@ -22,7 +22,6 @@ export default function AuthProvider({ children }) {
     }
   }, [uid])
 
-
   useEffect(() => {
     if(refetchUserInfo) {
       getUserInfo();

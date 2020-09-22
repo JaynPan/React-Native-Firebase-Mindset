@@ -166,16 +166,16 @@ export default function SplashScreen({ navigation }) {
         animation="fadeInUpBig"
       >
         <Input
-          label="輸入電子郵件"
+          label="電子郵件"
           placeholder='email@gmail.com'
           leftIcon={<Ionicons name="md-mail" size={24} color="#86939e" />}
           inputStyle={{ marginLeft: 10 }}
-          keyboardType="email-address"
           value={email}
+          autoCapitalize="none"
           onChangeText={val => setEmail(val)}
         />
         <Input
-          label="輸入密碼"
+          label="密碼"
           secureTextEntry={true}
           autoCompleteType="password"
           placeholder='Password'

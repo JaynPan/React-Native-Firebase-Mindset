@@ -129,7 +129,6 @@ export default function SignUpSceen () {
           <Input
             label="密碼"
             secureTextEntry={true}
-            keyboardType="password"
             placeholder='Your Password'
             leftIcon={<Ionicons name="md-lock" size={18} color="#86939e" />}
             inputStyle={{ marginLeft: 10 }}
