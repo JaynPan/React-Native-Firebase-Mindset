@@ -41,7 +41,7 @@ export default function SplashScreen({ navigation }) {
                   .set({ emailVerified: true }, { merge: true });
         }
 
-        navigation.navigate('HomeScreen')
+        navigation.navigate('TabNavigations')
       } else {
         navigation.navigate('SignInScreen')
       }
