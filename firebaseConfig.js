@@ -5,7 +5,7 @@ import 'firebase/auth';
 // import "firebase/database";
 import 'firebase/firestore';
 // import "firebase/functions";
-// import "firebase/storage";
+import 'firebase/storage';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -13,7 +13,7 @@ const firebaseConfig = {
   authDomain: 'lohas-cocktail-recipes.firebaseapp.com',
   databaseURL: 'https://lohas-cocktail-recipes.firebaseio.com',
   projectId: 'lohas-cocktail-recipes',
-  storageBucket: 'lohas-cocktail-recipes.appspot.com',
+  storageBucket: 'gs://lohas-cocktail-recipes.appspot.com',
   messagingSenderId: 'sender-id',
   appId: 'app-id',
   measurementId: 'G-measurement-id',
