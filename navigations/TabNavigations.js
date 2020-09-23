@@ -29,6 +29,13 @@ export default function TabNavigations() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
+      tabBarOptions={{
+        inactiveBackgroundColor: '#1B2021',
+        activeBackgroundColor: '#1B2021',
+        style: {
+          borderTopWidth: 0,
+        },
+      }}
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Setting" component={Setting} />
