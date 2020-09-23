@@ -6,6 +6,7 @@ import { Avatar, SearchBar } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
 import { useAuth } from '../context/AuthProvider';
+import OverviewItemCard from '../components/OverviewItemCard';
 
 const styles = StyleSheet.create({
   container: {
@@ -111,6 +112,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
+      <OverviewItemCard />
     </View>
     </>
   );
