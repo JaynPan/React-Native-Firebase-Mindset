@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -15,5 +15,5 @@ export default function SettingScreen() {
     <View style={styles.container}>
       <Text>Setting</Text>
     </View>
-  )
+  );
 }

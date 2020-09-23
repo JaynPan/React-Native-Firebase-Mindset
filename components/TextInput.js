@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Input } from 'react-native-elements'
+import { Input } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   input: {
     fontSize: 12,
-  }
-})
+  },
+});
 
-export default function TextInput ({ ...rest }) {
+export default function TextInput({ ...rest }) {
   return (
     <Input
       style={styles.input}
       labelStyle={{
-        fontSize: 11
+        fontSize: 11,
       }}
       inputContainerStyle={{
         height: 30,
@@ -21,5 +21,5 @@ export default function TextInput ({ ...rest }) {
       {...rest}
       keyboardAppearance="dark"
     />
-  )
+  );
 }

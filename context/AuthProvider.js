@@ -1,5 +1,5 @@
 import React, {
-  useState, useContext, createContext, useMemo, useEffect
+  useState, useContext, createContext, useMemo, useEffect,
 } from 'react';
 import * as firebase from 'firebase';
 
@@ -13,24 +13,24 @@ export default function AuthProvider({ children }) {
 
   const getUserInfo = async () => {
     const doc = await firebase.firestore().collection('users').doc(uid).get();
-    setUserInfo(doc.data())
+    setUserInfo(doc.data());
   };
 
   useEffect(() => {
-    if(uid) {
+    if (uid) {
       getUserInfo();
     }
-  }, [uid])
+  }, [uid]);
 
   useEffect(() => {
-    if(refetchUserInfo) {
+    if (refetchUserInfo) {
       getUserInfo();
-      setRefetchUserInfo(false)
+      setRefetchUserInfo(false);
     }
   }, [refetchUserInfo]);
 
   const authDataValue = useMemo(() => (
-    {uid, userInfo, setRefetchUserInfo}), [uid, userInfo, setRefetchUserInfo]);
+    { uid, userInfo, setRefetchUserInfo }), [uid, userInfo, setRefetchUserInfo]);
 
   return (
     <Auth.Provider value={{ ...authDataValue, setUid }}>

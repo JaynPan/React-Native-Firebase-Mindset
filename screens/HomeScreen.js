@@ -1,5 +1,7 @@
-import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React from 'react';
+import {
+  View, Text, StyleSheet, Button,
+} from 'react-native';
 import * as firebase from 'firebase';
 
 const styles = StyleSheet.create({
@@ -13,17 +15,17 @@ const styles = StyleSheet.create({
 
 export default function HomeScreen() {
   const signOut = () => {
-    firebase.auth().signOut().then(function() {
-      console.log('sign out successful')
-    }).catch(function(error) {
+    firebase.auth().signOut().then(() => {
+      console.log('sign out successful');
+    }).catch((error) => {
       console.log('sign out error', error);
     });
-  }
+  };
 
   return (
     <View style={styles.container}>
       <Text>home</Text>
       <Button onPress={signOut} title="sign out" />
     </View>
-  )
+  );
 }

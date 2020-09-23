@@ -14,31 +14,29 @@ const forFade = ({ current }) => ({
   },
 });
 
-const RootStackScreen = () => {
-  return (
+const RootStackScreen = () => (
     <RootStack.Navigator headerMode="none">
-      <RootStack.Screen 
+      <RootStack.Screen
         name="SplashScreen"
         component={SplashScreen}
         options={{ cardStyleInterpolator: forFade }}
       />
-      <RootStack.Screen 
-        name="SignInScreen" 
-        component={SignInScreen} 
+      <RootStack.Screen
+        name="SignInScreen"
+        component={SignInScreen}
         options={{ cardStyleInterpolator: forFade }}
       />
-      <RootStack.Screen 
-        name="SignUpScreen" 
-        component={SignUpScreen} 
+      <RootStack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
         options={{ cardStyleInterpolator: forFade }}
       />
-      <RootStack.Screen 
-        name="TabNavigations" 
-        component={TabNavigations} 
+      <RootStack.Screen
+        name="TabNavigations"
+        component={TabNavigations}
         options={{ cardStyleInterpolator: forFade }}
       />
     </RootStack.Navigator>
-  )
-}
+);
 
 export default RootStackScreen;

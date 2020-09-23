@@ -9,8 +9,8 @@ const Tab = createBottomTabNavigator();
 
 const TAB_NAME = {
   home: 'Home',
-  setting: 'Setting'
-}
+  setting: 'Setting',
+};
 
 export default function TabNavigations() {
   return (
@@ -33,5 +33,5 @@ export default function TabNavigations() {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Setting" component={Setting} />
     </Tab.Navigator>
-  )
+  );
 }
