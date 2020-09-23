@@ -95,11 +95,11 @@ export default function SplashScreen({ navigation }) {
                 .doc(uid)
                 .set({
                   gmail: result.user.email,
-                  profile_picture: result.additionalUserInfo.profile.picture,
+                  profilePicture: result.additionalUserInfo.profile.picture,
                   locale: result.additionalUserInfo.profile.locale,
-                  first_name: result.additionalUserInfo.profile.given_name,
-                  last_name: result.additionalUserInfo.profile.family_name,
-                  created_at: Date.now(),
+                  firstname: result.additionalUserInfo.profile.given_name,
+                  lastname: result.additionalUserInfo.profile.family_name,
+                  createdAt: Date.now(),
                 });
             }
 
@@ -138,9 +138,11 @@ export default function SplashScreen({ navigation }) {
 
   const signIn = async (signInEmail, signInPassword) => {
     try {
-      await firebase
+      const res = await firebase
         .auth()
         .signInWithEmailAndPassword(signInEmail, signInPassword);
+
+      console.log(res);
     } catch (error) {
       // const errorCode = error.code;
       const errorMessage = error.message;
