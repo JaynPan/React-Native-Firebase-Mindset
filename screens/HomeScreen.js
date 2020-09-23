@@ -22,9 +22,6 @@ const greetingStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  textContainer: {
-
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -43,6 +40,7 @@ const barStyles = StyleSheet.create({
     paddingHorizontal: '5%',
     backgroundColor: '#1B2021',
     paddingBottom: 30,
+    marginBottom: 20,
   },
   filterContainer: {
     flexDirection: 'row',
@@ -54,6 +52,31 @@ const barStyles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const cocktails = [
+  {
+    id: 'id-01',
+    mandarinName: '琴通寧',
+    englishName: 'Gin Tonic',
+    ingredients: ['琴酒', '通寧水', '檸檬'],
+    analysis: {
+      alcohol: '中酒精',
+      glass: '可林杯',
+      method: '直調法',
+    },
+  },
+  {
+    id: 'id-02',
+    mandarinName: '長島冰茶',
+    englishName: 'Long Island Iced Tea',
+    ingredients: ['伏特加', '琴酒', '萊姆酒', '龍舌蘭', '君度橙酒', '檸檬', '糖漿', '可樂'],
+    analysis: {
+      alcohol: '濃酒精',
+      glass: '高球杯',
+      method: '搖盪法',
+    },
+  },
+];
 
 export default function HomeScreen() {
   const { userInfo, setRefetchUserInfo } = useAuth();
@@ -112,7 +135,17 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
-      <OverviewItemCard />
+      {cocktails.map(({
+        id, mandarinName, englishName, ingredients, analysis,
+      }) => (
+        <OverviewItemCard
+          key={id}
+          mandarinName={mandarinName}
+          englishName={englishName}
+          ingredients={ingredients}
+          analysis={analysis}
+        />
+      ))}
     </View>
     </>
   );

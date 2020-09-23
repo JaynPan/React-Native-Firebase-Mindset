@@ -10,7 +10,7 @@ const storage = firebase.storage();
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: 12,
     marginHorizontal: '5%',
     backgroundColor: '#1B2021',
     height: 150,
@@ -31,12 +31,13 @@ const styles = StyleSheet.create({
   title: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 14,
     marginBottom: 10,
   },
   ingredients: {
     flexDirection: 'row',
     flex: 1,
+    flexWrap: 'wrap',
   },
   ingredient: {
     fontSize: 11,
@@ -67,7 +68,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function OverviewItemCard() {
+export default function OverviewItemCard({
+  mandarinName, englishName, ingredients, analysis,
+}) {
   const [imageUri, setImageUri] = useState('');
 
   useEffect(() => {
@@ -90,30 +93,30 @@ export default function OverviewItemCard() {
         />
       )}
       <View style={styles.body}>
-       <Text style={styles.title}>琴通寧 - Gin Tonic</Text>
+        <Text style={styles.title}>{mandarinName} - {englishName}</Text>
        <View style={styles.ingredients}>
-        <Text style={styles.ingredient}>#琴酒</Text>
-        <Text style={styles.ingredient}>#通寧水</Text>
-        <Text style={styles.ingredient}>#檸檬</Text>
+         {ingredients.map((ingredient, i) => (
+           <Text key={i} style={styles.ingredient}>#{ingredient}</Text>
+         ))}
        </View>
        <View style={styles.analysis}>
         <View style={styles.analysisItem}>
             <View style={styles.iconWrapper}>
               <Feather name="droplet" size={16} color="#fff" />
             </View>
-            <Text style={styles.text}>中酒精</Text>
+            <Text style={styles.text}>{analysis.alcohol}</Text>
         </View>
         <View style={styles.analysisItem}>
             <View style={styles.iconWrapper}>
               <FontAwesome name="glass" size={16} color="#fff" />
             </View>
-            <Text style={styles.text}>可林杯</Text>
+            <Text style={styles.text}>{analysis.glass}</Text>
         </View>
         <View style={styles.analysisItem}>
             <View style={styles.iconWrapper}>
             <MaterialCommunityIcons name="cup" size={16} color="#fff" />
             </View>
-            <Text style={styles.text}>直調法</Text>
+            <Text style={styles.text}>{analysis.method}</Text>
         </View>
        </View>
       </View>
