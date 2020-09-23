@@ -69,15 +69,15 @@ const styles = StyleSheet.create({
 });
 
 export default function OverviewItemCard({
-  mandarinName, englishName, ingredients, analysis,
+  mandarinName, englishName, ingredients, analysis, imageName,
 }) {
   const [imageUri, setImageUri] = useState('');
 
   useEffect(() => {
     const storageRef = storage.ref();
-    const ginTonicRef = storageRef.child('images/gin-tonic.jpg');
+    const imageRef = storageRef.child(`images/${imageName}`);
 
-    ginTonicRef
+    imageRef
       .getDownloadURL()
       .then((url) => { setImageUri(url); });
   }, []);

@@ -58,6 +58,7 @@ const cocktails = [
     id: 'id-01',
     mandarinName: '琴通寧',
     englishName: 'Gin Tonic',
+    imageName: 'gin-tonic.jpg',
     ingredients: ['琴酒', '通寧水', '檸檬'],
     analysis: {
       alcohol: '中酒精',
@@ -69,6 +70,7 @@ const cocktails = [
     id: 'id-02',
     mandarinName: '長島冰茶',
     englishName: 'Long Island Iced Tea',
+    imageName: 'long-island-iced-tea.jpg',
     ingredients: ['伏特加', '琴酒', '萊姆酒', '龍舌蘭', '君度橙酒', '檸檬', '糖漿', '可樂'],
     analysis: {
       alcohol: '濃酒精',
@@ -136,7 +138,7 @@ export default function HomeScreen() {
         </View>
       </View>
       {cocktails.map(({
-        id, mandarinName, englishName, ingredients, analysis,
+        id, mandarinName, englishName, ingredients, analysis, imageName,
       }) => (
         <OverviewItemCard
           key={id}
@@ -144,6 +146,7 @@ export default function HomeScreen() {
           englishName={englishName}
           ingredients={ingredients}
           analysis={analysis}
+          imageName={imageName}
         />
       ))}
     </View>
