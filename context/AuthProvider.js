@@ -8,18 +8,30 @@ export const useAuth = () => useContext(Auth);
 
 export default function AuthProvider({ children }) {
   const [uid, setUid] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState({});
   const [refetchUserInfo, setRefetchUserInfo] = useState(false);
 
+  const getCurrentSignInUser = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUid(user.uid);
+      } else {
+        firebase.auth().signOut();
+      }
+    });
+  };
+
   const getUserInfo = async () => {
+    if (!uid) {
+      await getCurrentSignInUser();
+    }
+
     const doc = await firebase.firestore().collection('users').doc(uid).get();
     setUserInfo(doc.data());
   };
 
   useEffect(() => {
-    if (uid) {
-      getUserInfo();
-    }
+    getUserInfo();
   }, [uid]);
 
   useEffect(() => {
