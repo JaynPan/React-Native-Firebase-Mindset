@@ -5,6 +5,7 @@ import {
 import { Avatar, SearchBar } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import Fuse from 'fuse.js';
+import * as firebase from 'firebase';
 
 import { useAuth } from '../context/AuthProvider';
 import OverviewItemCard from '../components/OverviewItemCard';
@@ -54,108 +55,6 @@ const barStyles = StyleSheet.create({
   },
 });
 
-const cocktails = [
-  {
-    id: 'id-01',
-    mandarinName: '琴通寧',
-    englishName: 'Gin Tonic',
-    imageName: 'gin-tonic.jpg',
-    ingredients: [
-      {
-        key: '琴酒',
-        value: '45ml',
-      },
-      {
-        key: '通寧水',
-        value: '適量',
-      },
-      {
-        key: '檸檬汁',
-        value: '15ml',
-      },
-    ],
-    analysis: {
-      alcohol: '中酒精',
-      glass: '可林杯',
-      method: '直調法',
-    },
-  },
-  {
-    id: 'id-02',
-    mandarinName: '長島冰茶',
-    englishName: 'Long Island Iced Tea',
-    imageName: 'long-island-iced-tea.jpg',
-    ingredients: [
-      {
-        key: '伏特加',
-        value: '15ml',
-      },
-      {
-        key: '琴酒',
-        value: '15ml',
-      },
-      {
-        key: '萊姆酒',
-        value: '15ml',
-      },
-      {
-        key: '龍舌蘭',
-        value: '15ml',
-      },
-      {
-        key: '君度橙酒',
-        value: '1tsp',
-      },
-      {
-        key: '檸檬汁',
-        value: '15ml',
-      },
-      {
-        key: '糖漿',
-        value: '10ml',
-      },
-      {
-        key: '可樂',
-        value: '適量',
-      },
-    ],
-    analysis: {
-      alcohol: '高酒精',
-      glass: '高球杯',
-      method: '搖盪法',
-    },
-  },
-  {
-    id: 'id-03',
-    mandarinName: '瑪格麗特',
-    englishName: 'Margarita',
-    imageName: 'long-island-iced-tea.jpg',
-    ingredients: [
-      {
-        key: '龍舌蘭',
-        value: '60ml',
-      },
-      {
-        key: '君度橙酒',
-        value: '25',
-      },
-      {
-        key: '檸檬汁',
-        value: '15ml',
-      },
-      {
-        key: '糖漿',
-        value: '10ml',
-      },
-    ],
-    analysis: {
-      alcohol: '中高酒精',
-      glass: '瑪格麗特杯',
-      method: '搖盪法',
-    },
-  },
-];
-
 const searchOptions = {
   keys: [
     'englishName',
@@ -167,31 +66,56 @@ const searchOptions = {
   ],
 };
 
-const fuse = new Fuse(cocktails, searchOptions);
-
 export default function HomeScreen() {
   const { userInfo, setRefetchUserInfo } = useAuth();
   const [search, setSearch] = useState('');
-  const [result, setResult] = useState(cocktails);
+  const [recipes, setRecipes] = useState([]);
+  const [result, setResult] = useState(recipes);
+  const fuse = new Fuse(recipes, searchOptions);
 
   const updateSearch = (val) => {
     setSearch(val);
   };
 
-  useEffect(() => {
+  const fetchRecipes = async () => {
+    try {
+      const querySnapshot = await firebase.firestore().collection('recipes').get();
+      const newRecipes = [];
+
+      querySnapshot.forEach((doc) => {
+        newRecipes.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setRecipes(newRecipes);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const filterRecipes = () => {
     if (search.trim().length !== 0) {
       const searchResult = fuse.search(search).map(({ item }) => item);
 
       setResult(searchResult);
     } else {
-      setResult(cocktails);
+      setResult(recipes);
     }
+  };
+
+  useEffect(() => {
+    filterRecipes();
   }, [search]);
 
   useEffect(() => {
     if (Object.keys(userInfo).length === 0) {
       setRefetchUserInfo(true);
     }
+  }, []);
+
+  useEffect(() => {
+    fetchRecipes();
   }, []);
 
   return (
