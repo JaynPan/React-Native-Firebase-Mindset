@@ -18,9 +18,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     flexDirection: 'row',
   },
+  imageContainer: {
+    width: 120,
+    backgroundColor: '#A99985',
+  },
   image: {
     flexShrink: 0,
-    width: 120,
+    width: '100%',
     height: '100%',
     resizeMode: 'cover',
   },
@@ -84,14 +88,16 @@ export default function OverviewItemCard({
 
   return (
     <View style={styles.container}>
-      {imageUri.length > 0 && (
-        <Image
-          style={styles.image}
-          source={{
-            uri: imageUri,
-          }}
-        />
-      )}
+      <View style={styles.imageContainer}>
+        {imageUri.length > 0 && (
+          <Image
+            style={styles.image}
+            source={{
+              uri: imageUri,
+            }}
+          />
+        )}
+      </View>
       <View style={styles.body}>
         <Text style={styles.title}>{mandarinName} - {englishName}</Text>
        <View style={styles.ingredients}>
