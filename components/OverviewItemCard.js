@@ -95,8 +95,8 @@ export default function OverviewItemCard({
       <View style={styles.body}>
         <Text style={styles.title}>{mandarinName} - {englishName}</Text>
        <View style={styles.ingredients}>
-         {ingredients.map((ingredient, i) => (
-           <Text key={i} style={styles.ingredient}>#{ingredient}</Text>
+         {ingredients.map(({ key }, i) => (
+           <Text key={i} style={styles.ingredient}>#{key}</Text>
          ))}
        </View>
        <View style={styles.analysis}>
