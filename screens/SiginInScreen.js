@@ -53,7 +53,6 @@ export default function SplashScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   const isUserEqual = (googleUser, firebaseUser) => {
-    console.log('firebaseuser', firebaseUser);
     if (firebaseUser) {
       const { providerData } = firebaseUser;
       for (let i = 0; i < providerData.length; i += 1) {

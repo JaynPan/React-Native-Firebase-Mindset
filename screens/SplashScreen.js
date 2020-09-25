@@ -33,8 +33,10 @@ export default function SplashScreen({ navigation }) {
   const checkIfLoggin = () => {
     firebase.auth().onAuthStateChanged(async (result) => {
       if (result && result?.emailVerified) {
+        const copyResult = JSON.parse(JSON.stringify(result));
+
         // check if user first time login
-        if (!result.lastLoginAt) {
+        if (!copyResult.lastLoginAt) {
           // update email verified status in database
           await firebase
             .firestore()

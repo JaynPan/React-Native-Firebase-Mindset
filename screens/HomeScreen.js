@@ -97,10 +97,7 @@ export default function HomeScreen() {
   const filterRecipes = () => {
     if (search.trim().length !== 0) {
       const searchResult = fuse.search(search).map(({ item }) => item);
-
       setResult(searchResult);
-    } else {
-      setResult(recipes);
     }
   };
 
@@ -117,6 +114,10 @@ export default function HomeScreen() {
   useEffect(() => {
     fetchRecipes();
   }, []);
+
+  useEffect(() => {
+    setResult(recipes);
+  }, [recipes]);
 
   return (
     <>
