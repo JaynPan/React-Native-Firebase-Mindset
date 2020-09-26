@@ -2,14 +2,14 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import Home from '../screens/HomeScreen';
+import HomeStack from './HomeStack';
 import Setting from '../screens/SettingScreen';
 
 const Tab = createBottomTabNavigator();
 
 const TAB_NAME = {
-  home: 'Home',
-  setting: 'Setting',
+  home: '首頁',
+  setting: '設定',
 };
 
 export default function TabNavigations() {
@@ -37,8 +37,8 @@ export default function TabNavigations() {
         },
       }}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Setting" component={Setting} />
+      <Tab.Screen name={TAB_NAME.home} component={HomeStack} />
+      <Tab.Screen name={TAB_NAME.setting} component={Setting} />
     </Tab.Navigator>
   );
 }

@@ -66,7 +66,7 @@ const searchOptions = {
   ],
 };
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const { userInfo, setRefetchUserInfo } = useAuth();
   const [search, setSearch] = useState('');
   const [recipes, setRecipes] = useState([]);
@@ -175,6 +175,7 @@ export default function HomeScreen() {
               ingredients={ingredients}
               analysis={analysis}
               imageName={imageName}
+              navigation={navigation}
             />
           );
         }}

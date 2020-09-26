@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, StyleSheet, Image,
+  View, Text, StyleSheet, Image, TouchableOpacity,
 } from 'react-native';
 import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 });
 
 export default function OverviewItemCard({
-  mandarinName, englishName, ingredients, analysis, imageName,
+  mandarinName, englishName, ingredients, analysis, imageName, navigation,
 }) {
   const [imageUri, setImageUri] = useState('');
 
@@ -97,45 +97,47 @@ export default function OverviewItemCard({
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        {imageUri.length > 0 && (
-          <Image
-            style={styles.image}
-            source={{
-              uri: imageUri,
-            }}
-          />
-        )}
+    <TouchableOpacity onPress={() => { navigation.navigate('RecipeScreen'); }}>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          {imageUri.length > 0 && (
+            <Image
+              style={styles.image}
+              source={{
+                uri: imageUri,
+              }}
+            />
+          )}
+        </View>
+        <View style={styles.body}>
+          <Text style={styles.title}>{mandarinName} - {englishName}</Text>
+        <View style={styles.ingredients}>
+          {ingredients.map(({ key }, i) => (
+            <Text key={i} style={styles.ingredient}>#{key}</Text>
+          ))}
+        </View>
+        <View style={styles.analysis}>
+          <View style={styles.analysisItem}>
+              <View style={styles.iconWrapper}>
+                <Feather name="droplet" size={16} color="#fff" />
+              </View>
+              <Text style={styles.text}>{analysis.alcohol}</Text>
+          </View>
+          <View style={styles.analysisItem}>
+              <View style={styles.iconWrapper}>
+                <FontAwesome name="glass" size={16} color="#fff" />
+              </View>
+              <Text style={styles.text}>{analysis.glass}</Text>
+          </View>
+          <View style={styles.analysisItem}>
+              <View style={styles.iconWrapper}>
+              <MaterialCommunityIcons name="cup" size={16} color="#fff" />
+              </View>
+              <Text style={styles.text}>{analysis.method}</Text>
+          </View>
+        </View>
+        </View>
       </View>
-      <View style={styles.body}>
-        <Text style={styles.title}>{mandarinName} - {englishName}</Text>
-       <View style={styles.ingredients}>
-         {ingredients.map(({ key }, i) => (
-           <Text key={i} style={styles.ingredient}>#{key}</Text>
-         ))}
-       </View>
-       <View style={styles.analysis}>
-        <View style={styles.analysisItem}>
-            <View style={styles.iconWrapper}>
-              <Feather name="droplet" size={16} color="#fff" />
-            </View>
-            <Text style={styles.text}>{analysis.alcohol}</Text>
-        </View>
-        <View style={styles.analysisItem}>
-            <View style={styles.iconWrapper}>
-              <FontAwesome name="glass" size={16} color="#fff" />
-            </View>
-            <Text style={styles.text}>{analysis.glass}</Text>
-        </View>
-        <View style={styles.analysisItem}>
-            <View style={styles.iconWrapper}>
-            <MaterialCommunityIcons name="cup" size={16} color="#fff" />
-            </View>
-            <Text style={styles.text}>{analysis.method}</Text>
-        </View>
-       </View>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
