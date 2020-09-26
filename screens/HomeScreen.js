@@ -10,11 +10,12 @@ import * as firebase from 'firebase';
 import { useAuth } from '../context/AuthProvider';
 import OverviewItemCard from '../components/OverviewItemCard';
 import Layout from '../components/Layout';
+import { DARK_BLACK, BLACKISH_GREEN, CYAN_BLUE } from '../constant/styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#44555f',
+    backgroundColor: CYAN_BLUE,
   },
 });
 
@@ -41,7 +42,7 @@ const greetingStyles = StyleSheet.create({
 const barStyles = StyleSheet.create({
   container: {
     paddingHorizontal: '5%',
-    backgroundColor: '#1B2021',
+    backgroundColor: DARK_BLACK,
     paddingBottom: 30,
     marginBottom: 20,
   },
@@ -156,7 +157,7 @@ export default function HomeScreen({ navigation }) {
               <Ionicons
                 name="ios-funnel"
                 size={24}
-                color="#86939e"
+                color={BLACKISH_GREEN}
               />
             </View>
           </View>

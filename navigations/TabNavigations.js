@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeStack from './HomeStack';
 import Setting from '../screens/SettingScreen';
+import { DARK_BLACK, DARK_BROWN } from '../constant/styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,10 +31,11 @@ export default function TabNavigations() {
         },
       })}
       tabBarOptions={{
-        inactiveBackgroundColor: '#1B2021',
-        activeBackgroundColor: '#1B2021',
+        activeTintColor: DARK_BROWN,
+        inactiveBackgroundColor: DARK_BLACK,
+        activeBackgroundColor: DARK_BLACK,
         style: {
-          backgroundColor: '#1B2021',
+          backgroundColor: DARK_BLACK,
           borderTopWidth: 0,
         },
       }}

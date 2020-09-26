@@ -3,8 +3,9 @@ import {
   View, Text, StyleSheet, Image, TouchableOpacity,
 } from 'react-native';
 import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
-
 import * as firebase from 'firebase';
+
+import { DARK_BLACK, DARK_BROWN, LIGHT_BROWN } from '../constant/styles';
 
 const storage = firebase.storage();
 
@@ -12,11 +13,11 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 12,
     marginHorizontal: '5%',
-    backgroundColor: '#1B2021',
+    backgroundColor: DARK_BLACK,
     height: 150,
     borderRadius: 20,
     flexDirection: 'row',
-    shadowColor: '#1B2021',
+    shadowColor: DARK_BLACK,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     overflow: 'hidden',
     width: 120,
-    backgroundColor: '#A99985',
+    backgroundColor: DARK_BROWN,
   },
   image: {
     flexShrink: 0,
@@ -55,11 +56,11 @@ const styles = StyleSheet.create({
   },
   ingredient: {
     fontSize: 11,
-    color: '#DAD2BC',
+    color: LIGHT_BROWN,
     marginRight: 3,
   },
   iconWrapper: {
-    backgroundColor: '#A99985',
+    backgroundColor: DARK_BROWN,
     width: 26,
     height: 26,
     borderRadius: 13,
