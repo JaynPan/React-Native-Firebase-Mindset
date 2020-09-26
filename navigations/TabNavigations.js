@@ -33,6 +33,7 @@ export default function TabNavigations() {
         inactiveBackgroundColor: '#1B2021',
         activeBackgroundColor: '#1B2021',
         style: {
+          backgroundColor: '#1B2021',
           borderTopWidth: 0,
         },
       }}

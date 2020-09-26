@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar, FlatList,
+  View, Text, StyleSheet, FlatList,
 } from 'react-native';
 import { Avatar, SearchBar } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 
 import { useAuth } from '../context/AuthProvider';
 import OverviewItemCard from '../components/OverviewItemCard';
+import Layout from '../components/Layout';
 
 const styles = StyleSheet.create({
   container: {
@@ -120,68 +121,67 @@ export default function HomeScreen({ navigation }) {
   }, [recipes]);
 
   return (
-    <>
-    <StatusBar barStyle="light-content" />
-    <View style={styles.container}>
-      <View style={barStyles.container}>
-        <View style={greetingStyles.container}>
-          <View style={greetingStyles.textContainer}>
-            <Text style={greetingStyles.title}>Hi, {userInfo.firstname}</Text>
-            <Text style={greetingStyles.body}>今天想喝點什麼呢？</Text>
-          </View>
-          <Avatar
-            size="medium"
-            rounded
-            source={{
-              uri: userInfo.profilePicture,
-            }}
-          />
-        </View>
-        <View style={barStyles.filterContainer}>
-          <SearchBar
-            round
-            placeholder="搜尋..."
-            onChangeText={updateSearch}
-            value={search}
-            containerStyle={{
-              padding: 0,
-              backgroundColor: 'rgba(0,0,0,0)',
-              borderTopWidth: 0,
-              borderBottomWidth: 0,
-              flex: 1,
-              marginRight: 10,
-            }}
-          />
-          <View style={barStyles.filterIcon}>
-            <Ionicons
-              name="ios-funnel"
-              size={24}
-              color="#86939e"
+    <Layout>
+      <View style={styles.container}>
+        <View style={barStyles.container}>
+          <View style={greetingStyles.container}>
+            <View style={greetingStyles.textContainer}>
+              <Text style={greetingStyles.title}>Hi, {userInfo.firstname}</Text>
+              <Text style={greetingStyles.body}>今天想喝點什麼呢？</Text>
+            </View>
+            <Avatar
+              size="medium"
+              rounded
+              source={{
+                uri: userInfo.profilePicture,
+              }}
             />
           </View>
+          <View style={barStyles.filterContainer}>
+            <SearchBar
+              round
+              placeholder="搜尋..."
+              onChangeText={updateSearch}
+              value={search}
+              containerStyle={{
+                padding: 0,
+                backgroundColor: 'rgba(0,0,0,0)',
+                borderTopWidth: 0,
+                borderBottomWidth: 0,
+                flex: 1,
+                marginRight: 10,
+              }}
+            />
+            <View style={barStyles.filterIcon}>
+              <Ionicons
+                name="ios-funnel"
+                size={24}
+                color="#86939e"
+              />
+            </View>
+          </View>
         </View>
-      </View>
-      <FlatList
-        data={result}
-        renderItem={({ item }) => {
-          const {
-            mandarinName, englishName, ingredients, analysis, imageName,
-          } = item;
+        <FlatList
+          data={result}
+          renderItem={({ item }) => {
+            const {
+              mandarinName, englishName, ingredients, analysis, imageName,
+            } = item;
 
-          return (
-            <OverviewItemCard
-              mandarinName={mandarinName}
-              englishName={englishName}
-              ingredients={ingredients}
-              analysis={analysis}
-              imageName={imageName}
-              navigation={navigation}
-            />
-          );
-        }}
-        keyExtractor={(item) => item.id}
-      />
-    </View>
-    </>
+            return (
+              <OverviewItemCard
+                mandarinName={mandarinName}
+                englishName={englishName}
+                ingredients={ingredients}
+                analysis={analysis}
+                imageName={imageName}
+                navigation={navigation}
+              />
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    </Layout>
   );
 }

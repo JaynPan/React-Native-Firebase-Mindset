@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+import Layout from '../components/Layout';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -12,8 +14,10 @@ const styles = StyleSheet.create({
 
 export default function SettingScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Recipe</Text>
-    </View>
+    <Layout>
+      <View style={styles.container}>
+        <Text>Recipe</Text>
+      </View>
+    </Layout>
   );
 }
