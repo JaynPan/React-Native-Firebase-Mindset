@@ -113,16 +113,16 @@ export default function OverviewItemCard({ data, navigation }) {
         </View>
         <View style={styles.body}>
           <Text style={styles.title}>{mandarinName} - {englishName}</Text>
-        <View style={styles.ingredients}>
-          {ingredients.map(({ key }, i) => (
-            <Text key={i} style={styles.ingredient}>#{key}</Text>
-          ))}
-        </View>
-        <View style={styles.analysis}>
-          <AnalysisItem category="alcohol" description={analysis.alcohol} />
-          <AnalysisItem category="glass" description={analysis.glass} />
-          <AnalysisItem category="method" description={analysis.method} />
-        </View>
+          <View style={styles.ingredients}>
+            {ingredients.map(({ key }, i) => (
+              <Text key={i} style={styles.ingredient}>#{key}</Text>
+            ))}
+          </View>
+          <View style={styles.analysis}>
+            <AnalysisItem category="alcohol" description={analysis.alcohol} />
+            <AnalysisItem category="glass" description={analysis.glass} />
+            <AnalysisItem category="method" description={analysis.method} />
+          </View>
         </View>
       </View>
     </TouchableOpacity>
