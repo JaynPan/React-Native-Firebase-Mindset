@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
-import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as firebase from 'firebase';
 
 import { DARK_BLACK, DARK_BROWN, LIGHT_BROWN } from '../constant/styles';
+import { useRecipe } from '../context/RecipeProvider';
+import ImageLoader from './ImageLoader';
+import AnalysisItem from './AnalysisItem';
 
 const storage = firebase.storage();
 
@@ -73,20 +75,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  analysisItem: {
-    alignItems: 'center',
-    marginRight: 15,
-  },
-  text: {
-    color: '#fff',
-    fontSize: 10,
-  },
 });
 
-export default function OverviewItemCard({
-  mandarinName, englishName, ingredients, analysis, imageName, navigation,
-}) {
+export default function OverviewItemCard({ data, navigation }) {
+  const { saveToggleRecipe } = useRecipe();
   const [imageUri, setImageUri] = useState('');
+  const {
+    mandarinName, englishName, ingredients, analysis, imageName,
+  } = data;
+
+  const handleCardPress = () => {
+    saveToggleRecipe({ ...data, imageUri });
+    navigation.navigate('RecipeScreen');
+  };
 
   useEffect(() => {
     const storageRef = storage.ref();
@@ -98,11 +99,11 @@ export default function OverviewItemCard({
   }, []);
 
   return (
-    <TouchableOpacity onPress={() => { navigation.navigate('RecipeScreen'); }}>
+    <TouchableOpacity onPress={handleCardPress}>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           {imageUri.length > 0 && (
-            <Image
+            <ImageLoader
               style={styles.image}
               source={{
                 uri: imageUri,
@@ -118,24 +119,9 @@ export default function OverviewItemCard({
           ))}
         </View>
         <View style={styles.analysis}>
-          <View style={styles.analysisItem}>
-              <View style={styles.iconWrapper}>
-                <Feather name="droplet" size={16} color="#fff" />
-              </View>
-              <Text style={styles.text}>{analysis.alcohol}</Text>
-          </View>
-          <View style={styles.analysisItem}>
-              <View style={styles.iconWrapper}>
-                <FontAwesome name="glass" size={16} color="#fff" />
-              </View>
-              <Text style={styles.text}>{analysis.glass}</Text>
-          </View>
-          <View style={styles.analysisItem}>
-              <View style={styles.iconWrapper}>
-              <MaterialCommunityIcons name="cup" size={16} color="#fff" />
-              </View>
-              <Text style={styles.text}>{analysis.method}</Text>
-          </View>
+          <AnalysisItem category="alcohol" description={analysis.alcohol} />
+          <AnalysisItem category="glass" description={analysis.glass} />
+          <AnalysisItem category="method" description={analysis.method} />
         </View>
         </View>
       </View>
