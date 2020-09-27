@@ -34,7 +34,10 @@ const RootStackScreen = () => (
       <RootStack.Screen
         name="TabNavigations"
         component={TabNavigations}
-        options={{ cardStyleInterpolator: forFade }}
+        options={{
+          cardStyleInterpolator: forFade,
+          gestureEnabled: false,
+        }}
       />
     </RootStack.Navigator>
 );
