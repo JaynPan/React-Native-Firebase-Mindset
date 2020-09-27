@@ -164,22 +164,8 @@ export default function HomeScreen({ navigation }) {
         </View>
         <FlatList
           data={result}
-          renderItem={({ item }) => {
-            const {
-              mandarinName, englishName, ingredients, analysis, imageName,
-            } = item;
-
-            return (
-              <OverviewItemCard
-                mandarinName={mandarinName}
-                englishName={englishName}
-                ingredients={ingredients}
-                analysis={analysis}
-                imageName={imageName}
-                navigation={navigation}
-              />
-            );
-          }}
+          renderItem={({ item }) => (
+              <OverviewItemCard data={item} navigation={navigation} />)}
           keyExtractor={(item) => item.id}
         />
       </View>

@@ -5,13 +5,16 @@ import './firebaseConfig';
 
 import RootStackScreen from './navigations/RootStack';
 import AuthProvider from './context/AuthProvider';
+import RecipeProvider from './context/RecipeProvider';
 
 export default function App() {
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <RootStackScreen />
-      </NavigationContainer>
+      <RecipeProvider>
+        <NavigationContainer>
+          <RootStackScreen />
+        </NavigationContainer>
+      </RecipeProvider>
     </AuthProvider>
   );
 }

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function AnalsysItem({ category, description }) {
+export default function AnalsyisItem({ category, description }) {
   const selectCategory = () => {
     switch (category) {
       case 'alcohol':
